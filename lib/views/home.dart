@@ -96,21 +96,22 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Chihuahuas!'),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.list),
-              onPressed: _pushSaved,
-              tooltip: 'Chihuahuas favoritos',
-            ),
-          ],
-        ),
-        body: ValueListenableBuilder(
-          valueListenable: controller.state,
-          builder: (context, value, child) {
-            return manageState(controller.state.value);
-          },
-        ));
+      appBar: AppBar(
+        title: const Text('Chihuahuas!'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.list),
+            onPressed: _pushSaved,
+            tooltip: 'Chihuahuas favoritos',
+          ),
+        ],
+      ),
+      body: ValueListenableBuilder(
+        valueListenable: controller.state,
+        builder: (context, value, child) {
+          return manageState(controller.state.value);
+        },
+      )
+    );
   }
 }
