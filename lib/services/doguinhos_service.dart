@@ -7,7 +7,8 @@ import 'package:http/http.dart' as http;
 class DoguinhosService {
   final url = 'https://dog.ceo/api/breed/chihuahua/images';
 
-  Future<DoguinhosModel> fetchDoguinhos(http.Client client) async {
+  Future<DoguinhosModel> fetchDoguinhos([http.Client? client]) async {
+    client ??= http.Client();
     try {
       final response = await client.get(Uri.parse(url));
 

@@ -1,18 +1,20 @@
 import 'package:doguinhos/models/doguinhos_model.dart';
 import 'package:doguinhos/services/doguinhos_service.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class DoguinhosController {
-  late DoguinhosModel doguinhos;
-  final service = DoguinhosService();
+  late DoguinhosModel doguinhos = DoguinhosModel();
+  final DoguinhosService service;
   final state = ValueNotifier<DoguinhosState>(DoguinhosState.start);
   final saved = <String>{};
 
+  DoguinhosController([DoguinhosService? service])
+    : service = service ?? DoguinhosService();
+  
   Future start() async {
     state.value = DoguinhosState.loading;
     try {
-      doguinhos = await service.fetchDoguinhos(http.Client());
+      doguinhos = await service.fetchDoguinhos();
       state.value = DoguinhosState.success;
     } catch (e) {
       state.value = DoguinhosState.error;
