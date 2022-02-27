@@ -38,7 +38,7 @@ class _HomeState extends State<Home> {
       child: CircularProgressIndicator()
     );
   }
-  
+
   _error() {
     return Center(
       child: CupertinoButton(
@@ -68,9 +68,9 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: AnimatedBuilder(
-        animation: controller.state, 
-        builder: (context, child) {
+      body: ValueListenableBuilder(
+        valueListenable: controller.state,
+        builder: (context, value, child) {
           return manageState(controller.state.value);
         },
       ) 
