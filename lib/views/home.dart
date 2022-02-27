@@ -27,8 +27,16 @@ class _HomeState extends State<Home> {
     return ListView.builder(
       itemCount: controller.doguinhos.message?.length,
       itemBuilder: (context, index) {
-        return ListTile(
-          title: Text('item $index'),
+        return Container(
+          height: 180,
+          width: MediaQuery.of(context).size.width,
+          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(controller.doguinhos.message![index]),
+              fit: BoxFit.cover
+            ),
+          ),
         );
       }
     );
@@ -40,13 +48,13 @@ class _HomeState extends State<Home> {
         onPressed: () {
           controller.start();
         },
-        child: Text('Tentar novamente')
+        child: const Text('Tentar novamente')
       ),
     );
   }
     
   _loading() {
-    return Center(
+    return const Center(
       child: CircularProgressIndicator()
     );
   }
@@ -69,7 +77,12 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: manageState(DoguinhosState.error)
+      body: AnimatedBuilder(
+        animation: controller.state, 
+        builder: (context, child) {
+          return manageState(controller.state.value);
+        },
+      ) 
     );
   }
 }
