@@ -1,4 +1,5 @@
 import 'package:doguinhos/controllers/doguinhos_controller.dart';
+import 'package:doguinhos/views/shared/image_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -27,21 +28,17 @@ class _HomeState extends State<Home> {
     return ListView.builder(
       itemCount: controller.doguinhos.message?.length,
       itemBuilder: (context, index) {
-        return Container(
-          height: 180,
-          width: MediaQuery.of(context).size.width,
-          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: NetworkImage(controller.doguinhos.message![index]),
-              fit: BoxFit.cover
-            ),
-          ),
-        );
+        return ImageCard(imageUrl: controller.doguinhos.message![index]);
       }
     );
   }
 
+  _loading() {
+    return const Center(
+      child: CircularProgressIndicator()
+    );
+  }
+  
   _error() {
     return Center(
       child: CupertinoButton(
@@ -50,12 +47,6 @@ class _HomeState extends State<Home> {
         },
         child: const Text('Tentar novamente')
       ),
-    );
-  }
-    
-  _loading() {
-    return const Center(
-      child: CircularProgressIndicator()
     );
   }
 
