@@ -12,10 +12,9 @@ import 'doguinhos_controller_test.mocks.dart';
 @GenerateMocks([DoguinhosService])
 main() {
   final service = MockDoguinhosService();
-  final doguinhosModel = DoguinhosModel();
-  test('must fullfil variable doguinhos', () async {
+  final controller = DoguinhosController(service);
+  test('must fulfill variable doguinhos', () async {
     when(service.fetchDoguinhos()).thenAnswer((_) async => DoguinhosModel.fromJson(jsonDecode(json)));
-    final controller = DoguinhosController(service);
 
     await controller.start();
     expect(controller.doguinhos.message != null, true);
