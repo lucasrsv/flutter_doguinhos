@@ -4,12 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
-  const Home({ Key? key }) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
 }
-
 
 class _HomeState extends State<Home> {
   final controller = DoguinhosController();
@@ -26,27 +25,33 @@ class _HomeState extends State<Home> {
 
   _success() {
     return ListView.builder(
-      itemCount: controller.doguinhos.message?.length,
-      itemBuilder: (context, index) {
-        return ImageCard(imageUrl: controller.doguinhos.message![index]);
-      }
-    );
+        itemCount: controller.doguinhos.message?.length,
+        itemBuilder: (context, index) {
+          final alreadySaved = controller.checkSaveds(index);
+          return InkWell(
+            child: ImageCard(
+                imageUrl: controller.doguinhos.message![index],
+                alreadySaved: alreadySaved),
+            onTap: () {
+              setState(() {
+                controller.manageSaveds(alreadySaved, index);
+              });
+            },
+          );
+        });
   }
 
   _loading() {
-    return const Center(
-      child: CircularProgressIndicator()
-    );
+    return const Center(child: CircularProgressIndicator());
   }
 
   _error() {
     return Center(
       child: CupertinoButton(
-        onPressed: () {
-          controller.start();
-        },
-        child: const Text('Tentar novamente')
-      ),
+          onPressed: () {
+            controller.start();
+          },
+          child: const Text('Tentar novamente')),
     );
   }
 
@@ -65,15 +70,47 @@ class _HomeState extends State<Home> {
     }
   }
 
+  void _pushSaved() {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (context) {
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('Chihuahuas favoritos <3'),
+            ),
+            body: ListView.builder(
+                itemCount: controller.saved.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    child: ImageCard(
+                        imageUrl: controller.saved.elementAt(index),
+                        alreadySaved: true),
+                  );
+                }),
+          );
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ValueListenableBuilder(
-        valueListenable: controller.state,
-        builder: (context, value, child) {
-          return manageState(controller.state.value);
-        },
-      ) 
-    );
+        appBar: AppBar(
+          title: const Text('Chihuahuas!'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.list),
+              onPressed: _pushSaved,
+              tooltip: 'Chihuahuas favoritos',
+            ),
+          ],
+        ),
+        body: ValueListenableBuilder(
+          valueListenable: controller.state,
+          builder: (context, value, child) {
+            return manageState(controller.state.value);
+          },
+        ));
   }
 }

@@ -6,7 +6,7 @@ class DoguinhosController {
   late DoguinhosModel doguinhos;
   final service = DoguinhosService();
   final state = ValueNotifier<DoguinhosState>(DoguinhosState.start);
-
+  final saved = <String>{};
 
   Future start() async {
     state.value = DoguinhosState.loading;
@@ -16,8 +16,21 @@ class DoguinhosController {
     } catch (e) {
       state.value = DoguinhosState.error;
     }
-
   }
+
+  bool checkSaveds(int index) {
+    final alreadySaved = saved.contains(doguinhos.message![index]);
+    return alreadySaved;
+  }
+
+  void manageSaveds(bool alreadySaved, index) {
+    if (alreadySaved) {
+      saved.remove(doguinhos.message![index]);
+    } else {
+      saved.add(doguinhos.message![index]);
+    }
+  }
+
 }
 
 enum DoguinhosState { start, loading, success, error }
