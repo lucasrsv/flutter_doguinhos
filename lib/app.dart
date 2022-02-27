@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'views/home.dart';
 
@@ -6,9 +7,9 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.red),
-      home: const Home(),
+    return const CupertinoApp(
+      theme: CupertinoThemeData(primaryColor: CupertinoColors.activeBlue),
+      home: Home(),
     );
   }
 }
