@@ -1,17 +1,30 @@
 # doguinhos
 
-A new Flutter project.
+Aplicativo que permite a visualização de lindos chihuahuas, utilizando a [Dog API](https://dog.ceo/dog-api/documentation)
 
-## Getting Started
+### Features
 
-This project is a starting point for a Flutter application.
+- [x] Visualização em lista de chihuahuas
+- [x] Favoritar chihuahuas
 
-A few resources to get you started if this is your first Flutter project:
+### Pré-requisitos
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Para rodar o projeto, é necessário instalar o [Flutter](https://docs.flutter.dev/get-started/install) e preparar o seu ambiente.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# flutter_doguinhos
+É recomendável utilizar o [Android Studio, IntelliJ, VS Code, ou Emacs](https://docs.flutter.dev/get-started/editor?tab=vscode)
+
+### Rodando o projeto
+
+Após realizar toda a configuração necessária,
+
+```bash
+# Clone esse repositório
+$ git clone https://github.com/lucasrsv/flutter_doguinhos
+
+# Acesse a pasta do projeto
+$ cd flutter_doguinhos
+
+# Execute o app
+$ flutter run
+```
+
